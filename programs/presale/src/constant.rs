@@ -12,7 +12,7 @@ pub const USER_SEED: &[u8] = b"presale-user";
 pub const USDC_ADDRESS: Pubkey = pubkey!("DCwFVTqkanjVJKwJ4rPprH4y8XzkFmqtHgFavF92MUud");
 pub const USDT_ADDRESS: Pubkey = pubkey!("8GwuKqJigGFGBeQ2GMjxXdvj9WwbvHGTPkxykk424XP2");
 
-pub const NUM_STAGES: u8 = 9;
+pub const NUM_STAGES: u8 = 14;
 
 //  stage data: stage_num, price, amounts
 pub struct Stage {
@@ -22,16 +22,21 @@ pub struct Stage {
 }
 
 // token price with 6 decimals
-pub const STAGES: [Stage; 9] = [
-    Stage { index: 1,  price: 20_000, amount:  1_000_000 }, // $0.02
-    Stage { index: 2,  price: 30_000, amount:  2_000_000 }, // $0.03
-    Stage { index: 3,  price: 40_000, amount:  3_000_000 }, // $0.04
-    Stage { index: 4,  price: 50_000, amount: 4_000_000 }, // $0.05
-    Stage { index: 5,  price: 60_000, amount: 5_000_000 }, // $0.06
-    Stage { index: 6,  price: 70_000, amount: 6_000_000 }, // $0.07
-    Stage { index: 7,  price: 80_000, amount:  7_000_000 }, // $0.08
-    Stage { index: 8, price: 90_000, amount:  8_000_000 }, // $0.09
-    Stage { index: 9, price: 0, amount:  0 }, // zero stage for finishing presale
+pub const STAGES: [Stage; 14] = [
+    Stage { index: 1,  price: 300, amount:  111_110_000 }, // $0.0003
+    Stage { index: 2,  price: 500, amount:  199_998_000 }, // $0.0005
+    Stage { index: 3,  price: 700, amount:  317_460_000 }, // $0.0007
+    Stage { index: 4,  price: 900, amount: 493_826_667 }, // $0.0009
+    Stage { index: 5,  price: 1100, amount: 606_060_000 }, // $0.0011
+    Stage { index: 6,  price: 1300, amount: 512_820_000 }, // $0.0013
+    Stage { index: 7,  price: 1500, amount:  444_444_000 }, // $0.0015
+    Stage { index: 8, price: 1700, amount:  392_156_471 }, // $0.0017
+    Stage { index: 9, price: 1900, amount:  350_876_842 }, // $0.0019
+    Stage { index: 10, price: 2100, amount:  317_460_000 }, // $0.0021
+    Stage { index: 11, price: 2300, amount:  193_236_522 }, // $0.0023
+    Stage { index: 12, price: 2500, amount:  44_444_400 }, // $0.0025
+    Stage { index: 13, price: 2700, amount:  12_345_556 }, // $0.0027
+    Stage { index: 14, price: 0, amount:  0 }, // zero stage for finishing presale
 ];
 
 pub const TOKEN_DECIMALS: u64 = 1_000_000;
