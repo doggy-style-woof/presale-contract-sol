@@ -24,20 +24,21 @@ pub struct Stage {
 // token price with 6 decimals
 pub const STAGES: [Stage; 14] = [
     Stage { index: 1,  price: 300, amount:  111_110_000 }, // $0.0003
-    Stage { index: 2,  price: 500, amount:  199_998_000 }, // $0.0005
+    Stage { index: 2,  price: 500, amount:  155_554_000 }, // $0.0005
     Stage { index: 3,  price: 700, amount:  317_460_000 }, // $0.0007
-    Stage { index: 4,  price: 900, amount: 493_826_667 }, // $0.0009
-    Stage { index: 5,  price: 1100, amount: 606_060_000 }, // $0.0011
-    Stage { index: 6,  price: 1300, amount: 512_820_000 }, // $0.0013
-    Stage { index: 7,  price: 1500, amount:  444_444_000 }, // $0.0015
-    Stage { index: 8, price: 1700, amount:  392_156_471 }, // $0.0017
-    Stage { index: 9, price: 1900, amount:  350_876_842 }, // $0.0019
-    Stage { index: 10, price: 2100, amount:  317_460_000 }, // $0.0021
-    Stage { index: 11, price: 2300, amount:  193_236_522 }, // $0.0023
-    Stage { index: 12, price: 2500, amount:  44_444_400 }, // $0.0025
+    Stage { index: 4,  price: 900, amount:  370_370_000 }, // $0.0009
+    Stage { index: 5,  price: 1100, amount:  505_050_000 }, // $0.0011
+    Stage { index: 6,  price: 1300, amount:  598_290_000 }, // $0.0013
+    Stage { index: 7,  price: 1500, amount:  518_518_000 }, // $0.0015
+    Stage { index: 8, price: 1700, amount:  457_515_882 }, // $0.0017
+    Stage { index: 9, price: 1900, amount:  409_356_316 }, // $0.0019
+    Stage { index: 10, price: 2100, amount:  370_370_000 }, // $0.0021
+    Stage { index: 11, price: 2300, amount:  144_927_391 }, // $0.0023
+    Stage { index: 12, price: 2500, amount:  31_110_800 }, // $0.0025
     Stage { index: 13, price: 2700, amount:  12_345_556 }, // $0.0027
     Stage { index: 14, price: 0, amount:  0 }, // zero stage for finishing presale
 ];
+
 
 pub const TOKEN_DECIMALS: u64 = 1_000_000;
 
