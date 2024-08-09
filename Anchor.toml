@@ -5,10 +5,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-presale = "2DX5uvQ5U5jWWdGgGgffysjJhATjiGPCmNZPJDqmRwf4"
+presale = "59HgXCH8G7BpsbpCUPb4MtX5Pw5FQzD87phfE8FvLpFS"
 
 [programs.devnet]
-presale = "2DX5uvQ5U5jWWdGgGgffysjJhATjiGPCmNZPJDqmRwf4"
+presale = "59HgXCH8G7BpsbpCUPb4MtX5Pw5FQzD87phfE8FvLpFS"
 
 [registry]
 url = "https://api.apr.dev"
