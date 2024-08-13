@@ -11,13 +11,14 @@ import {
 import NodeWallet from '@coral-xyz/anchor/dist/cjs/nodewallet';
 
 import { Presale } from "../target/types/presale";
-import { createBuyTx, createBuyWithStableCoinTx, createInitializeTx, createInitUserTx, createSetStageTx, createSetVaultAddressTx, createStartPresaleTx } from '../lib/scripts';
+import { createSetStageTx, createSetVaultAddressTx, createStartPresaleTx } from '../lib/scripts';
 import { execTx } from "../lib/util";
+import {GLOBAL_SEED} from "../tests/constant";
 
 let solConnection: Connection = null;
 let program: Program<Presale> = null;
 let provider: Provider = null;
-let payer: NodeWallet = null;
+export let payer: NodeWallet = null;
 
 /**
  * Set cluster, provider, program
@@ -28,7 +29,7 @@ let payer: NodeWallet = null;
  */
 export const setClusterConfig = async (
     cluster: web3.Cluster,
-    keypair: string,
+    keypair: Keypair|string,
     rpc?: string
 ) => {
 
@@ -38,9 +39,15 @@ export const setClusterConfig = async (
         solConnection = new web3.Connection(rpc);
     }
 
-    const walletKeypair = Keypair.fromSecretKey(
-        Uint8Array.from(JSON.parse(fs.readFileSync(keypair, 'utf-8'))),
-        { skipValidation: true });
+    let walletKeypair
+    if(typeof keypair === 'string') {
+        walletKeypair = Keypair.fromSecretKey(
+          Uint8Array.from(JSON.parse(fs.readFileSync(keypair, 'utf-8'))),
+          {skipValidation: true});
+    } else {
+        walletKeypair = keypair;
+    }
+
     const wallet = new NodeWallet(walletKeypair);
 
     // Configure the client to use the local cluster.
@@ -64,12 +71,29 @@ export const setClusterConfig = async (
  * Called by admin right after the program deployment
  * to initialize global state
  */
-export const initProject = async () => {
-    const tx = await createInitializeTx(payer.publicKey, program);
+export const initProject = async (adminKp) => {
+    const [globalStateAddr, _] = PublicKey.findProgramAddressSync(
+      [Buffer.from(GLOBAL_SEED)],
+      program.programId
+    );
 
-    tx.recentBlockhash = (await solConnection.getLatestBlockhash()).blockhash;
+    const tx = await program.methods.initialize()
+      .accounts({
+        admin: adminKp.publicKey,
+      })
+      .signers([adminKp])
+      .rpc();
+    console.log("initialize tx: ", tx);
 
-    await execTx(tx, solConnection, payer);
+    const globalState = await program.account.globalState.fetch(globalStateAddr);
+    const sum = globalState.remainTokens.reduce((acc, num) => acc + num.toNumber(), 0);
+    console.log("total tokens needed: ", sum);
+
+    // const tx = await createInitializeTx(payer.publicKey, token, program);
+
+    // tx.recentBlockhash = (await solConnection.getLatestBlockhash()).blockhash;
+
+    // await execTx(tx, solConnection, payer);
 }
 
 export const setVaultAddress = async (
@@ -96,37 +120,6 @@ export const setStage = async (
     stageNum: number
 ) => {
     const tx = await createSetStageTx(payer.publicKey, stageNum, program);
-
-    tx.recentBlockhash = (await solConnection.getLatestBlockhash()).blockhash;
-
-    await execTx(tx, solConnection, payer);
-}
-
-export const initUser = async (
-) => {
-    const tx = await createInitUserTx(payer.publicKey, program);
-
-    tx.recentBlockhash = (await solConnection.getLatestBlockhash()).blockhash;
-
-    await execTx(tx, solConnection, payer);
-}
-
-export const buy = async (
-    solAmount: number,
-    vault: PublicKey
-) => {
-    const tx = await createBuyTx(payer.publicKey, solAmount, vault, program);
-
-    tx.recentBlockhash = (await solConnection.getLatestBlockhash()).blockhash;
-
-    await execTx(tx, solConnection, payer);
-}
-
-export const buyWithStableCoin = async (
-    coinAmount: number,
-    vault: PublicKey
-) => {
-    const tx = await createBuyWithStableCoinTx(payer.publicKey, coinAmount, vault, program);
 
     tx.recentBlockhash = (await solConnection.getLatestBlockhash()).blockhash;
 
